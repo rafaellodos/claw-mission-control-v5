@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Control | Claw</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">CLAW</span>
+            </div>
+            
+            <div class="workspaces">
+                <div class="section-label">WORKSPACES</div>
+                <div class="workspace-list" id="workspaceList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            
+            <div class="nav-section">
+                <div class="section-label">NAVIGATE</div>
+                <nav class="nav-items">
+                    <button class="nav-item active" data-view="tasks">
+                        <span class="nav-icon">📋</span>
+                        <span>Tasks</span>
+                    </button>
+                    <button class="nav-item" data-view="agents">
+                        <span class="nav-icon">🤖</span>
+                        <span>Agents</span>
+                    </button>
+                    <button class="nav-item" data-view="office">
+                        <span class="nav-icon">🏢</span>
+                        <span>Office</span>
+                    </button>
+                    <button class="nav-item" data-view="calendar">
+                        <span class="nav-icon">📅</span>
+                        <span>Calendar</span>
+                    </button>
+                    <button class="nav-item" data-view="documents">
+                        <span class="nav-icon">📁</span>
+                        <span>Docs</span>
+                    </button>
+                    <button class="nav-item" data-view="fellowship">
+                        <span class="nav-icon">⚔️</span>
+                        <span>Fellowship</span>
+                    </button>
+                    <button class="nav-item" data-view="chat">
+                        <span class="nav-icon">💬</span>
+                        <span>Chat</span>
+                    </button>
+                </nav>
+            </div>
+            
+            <div class="status-bar">
+                <div class="agent-status" id="activeAgents">
+                    <span class="status-dot active"></span>
+                    <span class="status-text">3 agents running</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="breadcrumb">
+                    <span id="currentWorkspace">Rafael</span>
+                    <span class="separator">/</span>
+                    <span id="currentView">Tasks</span>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-btn" title="Settings">⚙️</button>
+                    <button class="icon-btn" title="Add">➕</button>
+                </div>
+            </header>
+            
+            <!-- Views Container -->
+            <div class="views-container">
+                <!-- Tasks View -->
+                <section class="view active" id="tasksView">
+                    <div class="view-header">
+                        <h1>Task Manager</h1>
+                        <div class="view-controls">
+                            <select id="projectFilter" class="filter-select">
+                                <option value="all">All Projects</option>
+                            </select>
+                            <button class="btn-primary">+ Add Task</button>
+                        </div>
+                    </div>
+                    <div class="task-columns" id="taskColumns">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Agents View -->
+                <section class="view" id="agentsView">
+                    <div class="view-header">
+                        <h1>Agent Manager</h1>
+                    </div>
+                    <div class="agent-grid" id="agentGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Office View -->
+                <section class="view" id="officeView">
+                    <div class="view-header">
+                        <h1>Mission Control Office</h1>
+                    </div>
+                    <div class="office-container">
+                        <div class="office-grid" id="officeGrid">
+                            <!-- Pixel art office desks -->
+                            <div class="office-desk" data-agent="research-lead" data-project="lead-lasso">
+                                <div class="desk-sprite">🔍</div>
+                                <div class="desk-label">Research</div>
+                                <div class="desk-status idle"></div>
+                            </div>
+                            <div class="office-desk" data-agent="outreach-bot" data-project="lead-lasso">
+                                <div class="desk-sprite">📨</div>
+                                <div class="desk-label">Outreach</div>
+                                <div class="desk-status working"></div>
+                            </div>
+                            <div class="office-desk" data-agent="data-analyzer" data-project="sheet-show">
+                                <div class="desk-sprite">📊</div>
+                                <div class="desk-label">Analysis</div>
+                                <div class="desk-status idle"></div>
+                            </div>
+                            <div class="office-desk" data-agent="ion-assistant" data-project="ion-crm">
+                                <div class="desk-sprite">📱</div>
+                                <div class="desk-label">Ion CRM</div>
+                                <div class="desk-status waiting"></div>
+                            </div>
+                        </div>
+                        <div class="office-legend">
+                            <div class="legend-item"><span class="legend-dot idle"></span> Idle</div>
+                            <div class="legend-item"><span class="legend-dot working"></span> Working</div>
+                            <div class="legend-item"><span class="legend-dot waiting"></span> Waiting</div>
+                            <div class="legend-item"><span class="legend-dot offline"></span> Offline</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Calendar View -->
+                <section class="view" id="calendarView">
+                    <div class="view-header">
+                        <h1>Calendar</h1>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Documents View -->
+                <section class="view" id="documentsView">
+                    <div class="view-header">
+                        <h1>Document Hub</h1>
+                        <div class="search-bar">
+                            <input type="text" id="docSearch" placeholder="Search documents..." class="search-input">
+                            <select id="docCategory" class="filter-select">
+                                <option value="all">All Categories</option>
+                                <option value="strategy">Strategy</option>
+                                <option value="planning">Planning</option>
+                                <option value="onboarding">Onboarding</option>
+                                <option value="technical">Technical</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="doc-grid" id="docGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Fellowship View -->
+                <section class="view" id="fellowshipView">
+                    <div class="view-header">
+                        <h1>Fellowship</h1>
+                    </div>
+                    <div class="mission-statement">
+                        <h3>🎯 Mission Statement</h3>
+                        <p>To build autonomous revenue-generating systems through AI-powered lead generation and data analysis services, delivering high-value outcomes for clients while scaling operational capacity beyond human limitations.</p>
+                    </div>
+                    <div class="team-grid" id="teamGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </section>
+                
+                <!-- Chat View -->
+                <section class="view" id="chatView">
+                    <div class="view-header">
+                        <h1>Chat with Claw</h1>
+                        <div class="chat-status" id="chatStatus">
+                            <span class="status-dot active"></span>
+                            <span>Connected</span>
+                        </div>
+                    </div>
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="chat-message system">
+                                <div class="message-avatar">⚡</div>
+                                <div class="message-content">
+                                    <div class="message-sender">Claw</div>
+                                    <div class="message-text">Hey! I'm connected through this dashboard. Send me a message and I'll respond here. What do you need?</div>
+                                    <div class="message-time">Just now</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="chatInput" class="chat-input" placeholder="Type a message...">
+                            <button class="chat-send" id="chatSend">➤</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/tasks.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
